@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:compat="http://schemas.android.com/apk/res-auto/android"
+    tools:ignore="ResAuto">
+    <item
+        android:id="@+id/menuRefresh"
+        android:title="reafresh"
+        android:icon="@drawable/ic_person"
+        compat:actionViewClass="android.widget.ImageView"
+        compat:showAsAction="always" />
+</menu>
