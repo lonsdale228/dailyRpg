@@ -26,5 +26,4 @@
         <item name="android:textSize">15sp</item>
         <item name="android:fontFamily">@font/fifaks</item>
     </style>
-
 </resources>

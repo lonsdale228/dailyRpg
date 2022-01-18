@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.fragment_second.view.*
 import android.animation.ObjectAnimator
 import android.graphics.Interpolator
@@ -14,9 +12,10 @@ import android.graphics.drawable.Icon
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
-import android.widget.LinearLayout
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_second.*
+import org.w3c.dom.Text
 import kotlin.concurrent.thread
 
 
@@ -39,10 +38,19 @@ class secondFragment : Fragment() {
 
         val btn = view.findViewById<Button>(R.id.button)
         val lvlProgressBar = view.findViewById<ProgressBar>(R.id.lvlProgressBar)
-       // lvlProgressBar.
+
+        lvlProgressBar.scaleY=10f;
+
+        val lvlText=view.findViewById<TextView>(R.id.textLvl)
+
+        var lvlValue = lvlText.text.toString().toIntOrNull() ?: 0
+
 
         var pBarCount:Int=0;
         var counter:Int=0;
+        var lvlCharacter:Int=0;
+
+
         btn.setOnClickListener{
             when(counter){
                 0->btn.setText("Нажми на меня")
@@ -56,6 +64,12 @@ class secondFragment : Fragment() {
             if (counter==6) counter=0
             val animator = ObjectAnimator.ofInt(lvlProgressBar, "progress",pBarCount,pBarCount+10)
             pBarCount+=10;
+            if (pBarCount==100)
+            {
+                pBarCount=0;
+                lvlValue+=1;
+                lvlText.setText(lvlValue.toString())
+            }
             animator.interpolator= LinearInterpolator();
             animator.duration = 100;
             animator.start()
@@ -66,18 +80,13 @@ class secondFragment : Fragment() {
         }
 
         //btn animation
-        val animZoomOut = AnimationUtils.loadAnimation(context, R.anim.zoom_out)
         val animZoomIn = AnimationUtils.loadAnimation(context, R.anim.zoom_in)
-        Thread{
-            while (true){
-                btn.startAnimation(animZoomOut)
-                Thread.sleep(1000)
-                btn.startAnimation(animZoomIn)
-                Thread.sleep(1000)
-            }
-        }.start()
+        btn.startAnimation(animZoomIn)
 
-
+        //main character animation
+        val animDown = AnimationUtils.loadAnimation(requireContext(), R.anim.move_down_up)
+        val imgMC = view.findViewById<ImageView>(R.id.imgMainCharacter)
+        imgMC.startAnimation(animDown)
 
         return view
 
