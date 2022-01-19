@@ -51,6 +51,8 @@ class secondFragment : Fragment() {
         var lvlCharacter:Int=0;
 
 
+
+        //on btn click
         btn.setOnClickListener{
             when(counter){
                 0->btn.setText("Нажми на меня")
@@ -88,8 +90,10 @@ class secondFragment : Fragment() {
         val imgMC = view.findViewById<ImageView>(R.id.imgMainCharacter)
         imgMC.startAnimation(animDown)
 
-        return view
 
+
+
+        return view
         //return inflater.inflate(R.layout.fragment_second, container, false)
 
     }
