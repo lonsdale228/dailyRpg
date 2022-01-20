@@ -4,5 +4,5 @@
         android:fromYDelta="0%p"
         android:repeatCount="infinite"
         android:repeatMode="reverse"
-        android:toYDelta="2%p" />
+        android:toYDelta="1%p" />
 </set>
