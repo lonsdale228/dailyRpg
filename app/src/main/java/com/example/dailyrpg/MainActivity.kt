@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
         //Nav Control
         val bottomNavigationView=findViewById<BottomNavigationView>(R.id.bottomNavigationView)//initialize
         val navController=findNavController(R.id.fragment) //initialize
@@ -44,6 +43,9 @@ class MainActivity : AppCompatActivity() {
 
       //  val secFragment= secondFragment()
       //  supportFragmentManager.beginTransaction().replace(R.id.bottomNavigationView,secFragment).commit()
+
+
+
 
 
     }
