@@ -1,10 +1,14 @@
 package com.example.dailyrpg
 
 import android.app.ActionBar
+import android.content.ClipData
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.RelativeLayout
+import android.view.View
+import android.widget.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
@@ -15,11 +19,18 @@ import kotlinx.android.synthetic.main.fragment_first.*
 
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+
+
+
+
 
 
         //Nav Control
@@ -36,4 +47,14 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    fun setFragment(f: Fragment) {
+
+        val ft = supportFragmentManager.beginTransaction()
+
+        ft.replace(R.id.fragment, f)
+        ft.commit()
+    }
+
+
 }
