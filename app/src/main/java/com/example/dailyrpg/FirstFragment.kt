@@ -1,20 +1,42 @@
 package com.example.dailyrpg
 
+import android.app.ActionBar
+import android.app.Activity
 import android.app.Application
+import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.view.*
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_dialog.*
 import kotlinx.android.synthetic.main.fragment_first.*
 
+class CustomDialogClass(context: Context) : Dialog(context) {
 
+    init {
+        setCancelable(true)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //val win = CustomDialogClass(context).getWindow()
+
+        //win!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        setContentView(R.layout.activity_dialog)
+
+        btnSave.setOnClickListener(){
+            Toast.makeText(context,"Сохранено успешно!",Toast.LENGTH_SHORT).show()
+            onBackPressed()
+        }
+        val animZoomIn = AnimationUtils.loadAnimation(context, R.anim.zoom_in)
+        btnSave.startAnimation(animZoomIn)
+    }
+}
 
 class FirstFragment : Fragment() {
 
@@ -23,11 +45,8 @@ class FirstFragment : Fragment() {
 
 
     }
-    fun append(arr: Array<Int>, element: Int): Array<Int> {
-        val list: MutableList<Int> = arr.toMutableList()
-        list.add(element)
-        return list.toTypedArray()
-    }
+
+    private lateinit var itemArrayList:ArrayList<Item>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,42 +54,51 @@ class FirstFragment : Fragment() {
     ): View? {
         var view: View? = null
         view = inflater.inflate(R.layout.fragment_first, container, false)
-        // Inflate the layout for this fragment
-
-       // val context: Context = MainApplication.applicationContext()
-
-        //val context = requireContext()
 
 
 
-
-        var l= mutableListOf<String>("1","2")
-
-
-        //var colorArrays = resources.getStringArray(R.array.region1)
-
-        var arrAdapter = ArrayAdapter(view.context,android.R.layout.simple_list_item_1,l)
+        val imgId= intArrayOf(R.drawable.easy,R.drawable.medium,R.drawable.hard)
+        val itemTitle= arrayOf("Сделать ДЗ","Убрать в комнате","Помыть посуду")
+        val itemDesc= arrayOf("Чтоб сделать дз не требуется много усилий",
+            "Убраться в своей комнате не доставит много трудностей",
+            "Насколько же много нужно усилий, чтоб вымыть посуду")
+        itemArrayList= ArrayList()
+        for(i in itemTitle.indices){
+            val item = Item(itemTitle[i],itemDesc[i], imgId[i])
+            itemArrayList.add(item)
+        }
         val listV = view.findViewById<ListView>(R.id.listTimetable)
-        listV.adapter = arrAdapter
+        listV.adapter = MyAdapter(view.context as Activity,itemArrayList)
+
+        listV.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            val itemTitle = itemTitle[position]
+            val itemDesc = itemDesc[position]
+            val imgId = imgId[position]
+
+//            val i = Intent(view.context,UserActivity::class.java)
+//            i.putExtra("itemTitle",itemTitle)
+//            i.putExtra("itemDesc",itemDesc)
+//            i.putExtra("itemPic",imgId)
+//            startActivity(i)
+        }
+
+
+       // var listofTimetable= mutableListOf<String>("1","2")
+       // var arrAdapter = ArrayAdapter(view.context,R.layout.single_item,R.id.itemTitle,listofTimetable)
+
+
 
 
 
         val btn = view.findViewById<FloatingActionButton>(R.id.floatingActionButton2)
 
-
         btn.setOnClickListener(){
-
-            l.add((l.size+1).toString())
-            listV.adapter=null
-            arrAdapter=ArrayAdapter(view.context,android.R.layout.simple_list_item_1,l)
-            listV.adapter=arrAdapter
-            arrAdapter.notifyDataSetChanged()
+            val animRotate = AnimationUtils.loadAnimation(context, R.anim.rotate_refresh)
+            btn.startAnimation(animRotate)
+            CustomDialogClass(view.context).show()
         }
 
-        listV.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            val selectedItemText = parent.getItemAtPosition(position)
-            Toast.makeText(view.context,l[position],Toast.LENGTH_SHORT).show()
-        }
+
 
 
         return view

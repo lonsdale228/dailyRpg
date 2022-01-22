@@ -2,6 +2,7 @@ package com.example.dailyrpg
 
 import android.app.ActionBar
 import android.content.ClipData
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,8 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
 
 
 
