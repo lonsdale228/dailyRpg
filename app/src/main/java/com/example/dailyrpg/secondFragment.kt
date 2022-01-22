@@ -49,7 +49,7 @@ class secondFragment : Fragment() {
         var pBarCount:Int=0;
         var counter:Int=0;
         var lvlCharacter:Int=0;
-
+        var lvlMultiply=10.0
 
         //on btn click
         btn.setOnClickListener{
@@ -63,13 +63,14 @@ class secondFragment : Fragment() {
             }
             counter+=1;
             if (counter==6) counter=0
-            val animator = ObjectAnimator.ofInt(lvlProgressBar, "progress",pBarCount,pBarCount+10)
-            pBarCount+=10;
-            if (pBarCount==100)
+            val animator = ObjectAnimator.ofInt(lvlProgressBar, "progress",pBarCount,pBarCount+lvlMultiply.toInt())
+            pBarCount+=lvlMultiply.toInt();
+            if (pBarCount>=100)
             {
                 pBarCount=0;
                 lvlValue+=1;
                 lvlText.setText(lvlValue.toString())
+                lvlMultiply*=0.95
             }
             animator.interpolator= LinearInterpolator();
             animator.duration = 100;
