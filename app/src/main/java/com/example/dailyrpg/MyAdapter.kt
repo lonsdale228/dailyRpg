@@ -25,4 +25,5 @@ class MyAdapter(private val context :Activity, private val arrayList: ArrayList<
 
         return view
     }
+
 }

@@ -51,7 +51,6 @@ class secondFragment : Fragment() {
         var lvlCharacter:Int=0;
 
 
-
         //on btn click
         btn.setOnClickListener{
             when(counter){
