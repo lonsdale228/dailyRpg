@@ -8,26 +8,34 @@
     android:background="@color/light_orange"
     >
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="120dp"
-        android:clickable="true"
-        android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ListView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/topNavView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:entries="@array/region1"
-        android:dividerHeight="1dp"
-        android:clickable="true"
-        android:id="@+id/listTimetable"
-        />
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/top_menu_first" />
+
+
+
+
+
+    <FrameLayout
+        android:id="@+id/navContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topNavView"
+        tools:layout_editor_absoluteX="8dp">
+
+        <fragment
+            android:id="@+id/fragment1"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_first" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

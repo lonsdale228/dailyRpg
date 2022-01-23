@@ -49,13 +49,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun setFragment(f: Fragment) {
-
-        val ft = supportFragmentManager.beginTransaction()
-
-        ft.replace(R.id.fragment, f)
-        ft.commit()
-    }
+//    fun setFragment(f: Fragment) {
+//
+//        val ft = supportFragmentManager.beginTransaction()
+//
+//        ft.replace(R.id.fragment, f)
+//        ft.commit()
+//    }
 
 
 }
