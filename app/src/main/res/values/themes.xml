@@ -26,4 +26,12 @@
         <item name="android:textSize">15sp</item>
         <item name="android:fontFamily">@font/fifaks</item>
     </style>
+
+    <style name="MenuTopItemsActive" parent="Theme.DailyRpg">
+        <item name="android:background">@color/light_orange</item>
+        <item name="textBackground">@color/light_orange</item>
+        <item name="backgroundColor">@color/light_orange</item>
+        <item name="backgroundTint">@color/light_orange</item>
+        <item name="actionMenuTextColor">@color/light_orange</item>
+    </style>
 </resources>

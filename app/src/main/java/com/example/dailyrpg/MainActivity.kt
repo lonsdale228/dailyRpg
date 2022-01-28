@@ -35,27 +35,16 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView=findViewById<BottomNavigationView>(R.id.bottomNavigationView)//initialize
         val navController=findNavController(R.id.fragment) //initialize
         bottomNavigationView.setupWithNavController(navController) // connect to navController
-       // navController.navigate(R.id.secondFragment) //move to fragment
+
         bottomNavigationView.setItemTextAppearanceActive(R.style.MenuItemsActive);
         bottomNavigationView.setItemTextAppearanceInactive(R.style.MenuItemsInactive);
 
 
-      //  val secFragment= secondFragment()
-      //  supportFragmentManager.beginTransaction().replace(R.id.bottomNavigationView,secFragment).commit()
 
 
 
 
 
     }
-
-//    fun setFragment(f: Fragment) {
-//
-//        val ft = supportFragmentManager.beginTransaction()
-//
-//        ft.replace(R.id.fragment, f)
-//        ft.commit()
-//    }
-
 
 }

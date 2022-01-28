@@ -5,6 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.R
+import android.content.Context
+import android.graphics.Color
+
+import android.graphics.drawable.ColorDrawable
+import androidx.test.core.app.ApplicationProvider
+
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
+import kotlinx.android.synthetic.main.fragment_disabled_item.*
+
 
 class disabled_item : Fragment() {
 
@@ -18,7 +28,15 @@ class disabled_item : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_disabled_item, container, false)
+
+        var view: View? = null
+        view = inflater.inflate(com.example.dailyrpg.R.layout.fragment_disabled_item, container, false)
+
+
+
+
+        return view
     }
+
 
 }
