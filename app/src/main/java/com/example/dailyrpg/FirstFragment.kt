@@ -51,7 +51,7 @@ class FirstFragment : Fragment() {
 
         childFragmentManager.beginTransaction().replace(R.id.navContainer,active_item()).commit()
         val navView:BottomNavigationView=view.findViewById(R.id.topNavView)
-
+        navView.setOnItemReselectedListener {  }
 
         navView.itemTextAppearanceActive=R.style.MenuTopItemsActive
         navView.itemTextAppearanceInactive=R.style.MenuTopItemsActive
@@ -66,7 +66,8 @@ class FirstFragment : Fragment() {
             true
         }
 
-
+        navView.setItemTextAppearanceActive(R.style.MenuItemsActive);
+        navView.setItemTextAppearanceInactive(R.style.MenuItemsInactive);
 
 
 

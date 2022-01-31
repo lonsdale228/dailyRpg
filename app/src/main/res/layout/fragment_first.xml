@@ -15,7 +15,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/top_menu_first" />
+        app:menu="@menu/top_menu_first"
+        app:itemBackground="@drawable/nav_view_item_background"
+        android:background="@color/white"
+        android:outlineSpotShadowColor="@color/light_orange"
+        android:outlineProvider="background"
+        app:itemHorizontalTranslationEnabled = "false"
+        
+        />
 
 
 

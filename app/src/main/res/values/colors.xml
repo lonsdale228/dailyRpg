@@ -10,4 +10,8 @@
     <color name="orange">#C6903F</color>
     <color name="light_orange">#EAB76C</color>
     <color name="dark_orange">#7C5418</color>
+    <color name="deleteColor">#C72F23</color>
+    <color name="archiveColor">#33AF38</color>
+    <color name="moveBackColor">#E6CE00</color>
+    <color name="itemDivideLineColor">#4D635F5F</color>
 </resources>

@@ -109,7 +109,7 @@ class active_item : Fragment() {
                         Toast.makeText(context,"Введите название!", Toast.LENGTH_SHORT).show()
                     }
                     else{
-                        addItemToList(titleed.toString(),"How are u?",img,listV,itemArrayList)
+                        addItemToList(titleed.toString(),"Здесь могла быть Ваша реклама",img,listV,itemArrayList)
                         Toast.makeText(context,"Сохранено успешно!", Toast.LENGTH_SHORT).show()
                         onBackPressed()
                     }

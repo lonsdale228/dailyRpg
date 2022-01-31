@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setItemTextAppearanceActive(R.style.MenuItemsActive);
         bottomNavigationView.setItemTextAppearanceInactive(R.style.MenuItemsInactive);
 
-
+        bottomNavigationView.setOnItemReselectedListener {}
 
 
 
