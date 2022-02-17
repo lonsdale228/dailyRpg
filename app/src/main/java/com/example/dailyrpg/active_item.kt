@@ -12,8 +12,14 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.animation.AnimationUtils
 import android.widget.*
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.dailyrpg.db.ItemsModel
+import com.example.dailyrpg.db.MyDbManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_dialog.*
+import kotlinx.android.synthetic.main.fragment_disabled_item.*
 
 class active_item : Fragment() {
 
@@ -23,6 +29,9 @@ class active_item : Fragment() {
     }
     private lateinit var itemArrayList:ArrayList<Item>
 
+    private lateinit var activeItemArrayList: ArrayList<Item>
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,50 +40,74 @@ class active_item : Fragment() {
         var view: View? = null
         view = inflater.inflate(R.layout.fragment_active_item, container, false)
 
+        val listTimetable = view.findViewById<RecyclerView>(R.id.listTimetable)
 
-        val imgId= intArrayOf(R.drawable.easy,R.drawable.medium,R.drawable.hard)
-        val itemTitle= arrayOf("Сделать ДЗ","Убрать в комнате","Помыть посуду")
-        val itemDesc= arrayOf("Чтоб сделать дз не требуется много усилий",
-            "Убраться в своей комнате не доставит много трудностей",
-            "Насколько же много нужно усилий, чтоб вымыть посуду")
-
-        val listV = view.findViewById<ListView>(R.id.listTimetable)
-
-        itemArrayList= ArrayList()
+        val myDbManager = MyDbManager(view.context)
 
 
-        listV.adapter = MyAdapter(view.context as Activity,itemArrayList)
+        var imageId:Array<Int>
+        var title:Array<String>
 
+        imageId= arrayOf(
+            com.example.dailyrpg.R.drawable.easy,
+            com.example.dailyrpg.R.drawable.medium,
+            com.example.dailyrpg.R.drawable.hard)
 
+        val newRecyclerview= view.findViewById<RecyclerView>(R.id.listTimetable)
 
-        fun addItemToList(title:String, desc:String, imgId:Int, list: ListView, AList:ArrayList<Item>)
-        {
+        title = arrayOf("Hello","How are u?","Goodbye")
 
-            val img= intArrayOf(R.drawable.easy, R.drawable.medium, R.drawable.hard)
+        newRecyclerview.layoutManager = LinearLayoutManager(view.context)
 
+        newRecyclerview.setHasFixedSize(true)
+        activeItemArrayList = arrayListOf<Item>()
 
-            val item = Item(title, desc, img[imgId])
-
-            AList.add(item)
-
-            (list.adapter as MyAdapter).notifyDataSetChanged()
+        fun getUserData() {
+            var adapter=RecyclerViewAdapter(activeItemArrayList)
+            val swipegesture = object :SwipeGesture(view.context){
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    when(direction){
+                        ItemTouchHelper.LEFT->{
+                            adapter.moveItem(viewHolder.adapterPosition,true)
+                        }
+                        ItemTouchHelper.RIGHT->{
+                            val archiveItem=activeItemArrayList[viewHolder.adapterPosition]
+                            adapter.moveItem(viewHolder.adapterPosition,true)
+                            adapter.addItem(activeItemArrayList.size,archiveItem)
+                        }
+                    }
+                }
+            }
+            val touchHelper = ItemTouchHelper(swipegesture)
+            touchHelper.attachToRecyclerView(newRecyclerview)
+            newRecyclerview.adapter=adapter
+            adapter.setOnItemClickListener(object:RecyclerViewAdapter.onItemClickListener{
+                override fun onItemClick(position: Int) {
+                    Toast.makeText(view.context,"Hello World!!!$position",Toast.LENGTH_SHORT).show()
+                }
+            })
         }
 
-        addItemToList("Hello","How are u?",0,listV,itemArrayList)
+        getUserData()
+
+        //add item to recyclerView ActiveItem
+//        fun addItemToList(title:String, desc:String, imgId:Int, recyclView:RecyclerView, AList:ArrayList<Item>)
+//        {
+//            val img= intArrayOf(R.drawable.easy, R.drawable.medium, R.drawable.hard)
+//            val item = Item(title, desc, img[imgId])
+//            AList.add(item)
+//            recyclView.adapter?.notifyDataSetChanged()
+//        }
 
 
-        listV.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            val itemTitle = itemTitle[position]
-            val itemDesc = itemDesc[position]
-            val imgId = imgId[position]
+        val dataList:ArrayList<ItemsModel> = myDbManager.getEverything()
 
-            val i = Intent(view.context,UserActivity::class.java)
-            i.putExtra("itemTitle",itemTitle)
-            i.putExtra("itemDesc",itemDesc)
-            i.putExtra("itemPic",imgId)
-            startActivity(i)
+        for (item in dataList){
+            manageList.addItemToList(item.name,item.desc,item.difficulty,listTimetable,activeItemArrayList)
+
         }
 
+       // addItemToList("biba","boba",2,listTimetable,activeItemArrayList)
 
         class CustomDialogClass(context: Context) : Dialog(context) {
 
@@ -109,7 +142,12 @@ class active_item : Fragment() {
                         Toast.makeText(context,"Введите название!", Toast.LENGTH_SHORT).show()
                     }
                     else{
-                        addItemToList(titleed.toString(),"Здесь могла быть Ваша реклама",img,listV,itemArrayList)
+                        manageList.addItemToList(titleed.toString(),"Здесь могла быть Ваша реклама",img,listTimetable,activeItemArrayList)
+
+                        myDbManager.openDb()
+                        myDbManager.insertToDb(ItemsModel(difficulty = img,name=titleed.toString(),desc="Hello World!"))
+                        myDbManager.closeDb()
+
                         Toast.makeText(context,"Сохранено успешно!", Toast.LENGTH_SHORT).show()
                         onBackPressed()
                     }
@@ -134,5 +172,6 @@ class active_item : Fragment() {
 
         return view
     }
+
 
 }

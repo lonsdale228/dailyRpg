@@ -25,6 +25,7 @@ class RecyclerViewAdapter(private val itemsList:ArrayList<Item>): RecyclerView.A
     }
 
     fun moveItem(i:Int,isDone:Boolean){
+
         itemsList.removeAt(i)
         notifyDataSetChanged()
     }
@@ -46,6 +47,7 @@ class RecyclerViewAdapter(private val itemsList:ArrayList<Item>): RecyclerView.A
         val currentItem = itemsList[position]
         holder.imageView.setImageResource(currentItem.imgId)
         holder.title.text = currentItem.name
+        holder.desc.text = currentItem.desc
 
     }
 

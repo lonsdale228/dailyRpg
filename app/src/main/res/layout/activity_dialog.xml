@@ -77,6 +77,7 @@
                 android:text="Сложное"/>
         </RadioGroup>
 
+
         <EditText
             android:id="@+id/edName"
             android:layout_width="wrap_content"
@@ -88,5 +89,19 @@
             android:hint="Введите название"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnChooseTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/fifaks"
+            android:text="Выбрать время"
+            app:layout_constraintBottom_toTopOf="@+id/switch1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rgDifficulty"
+            app:layout_constraintVertical_bias="0.4" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
